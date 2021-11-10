@@ -5,10 +5,13 @@
  */
 package gt.com.excalibur.repositories;
 
+import gt.com.excalibur.models.Publisher;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 /**
  *
  * @author malopez
  */
-public interface PublisherRepository {
+public interface PublisherRepository extends JpaRepository<Publisher, Integer>{
 
 }

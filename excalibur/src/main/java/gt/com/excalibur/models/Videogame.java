@@ -17,7 +17,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
 
@@ -42,12 +41,8 @@ public class Videogame implements Serializable {
     private String releaseDate;
 
     @ManyToMany(cascade = { CascadeType.MERGE })
-    @JoinTable(name = "videogameGenre", joinColumns = { @JoinColumn(name = "idvideogame", referencedColumnName = "idvideogame") },
-            inverseJoinColumns = { @JoinColumn(name = "idgenre", referencedColumnName = "idgenre") })
-    Set<Genre> genres = new HashSet<>();
-
-    @ManyToOne
-    @JoinColumn(name = "idpublisher", nullable = false)
-    private Publisher publisher;
+    @JoinTable(name = "videogameGenre", joinColumns = { @JoinColumn(name = "idvideogame", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "idgenre", referencedColumnName = "id") })
+    private Set<Genre> genres = new HashSet<>();
 
 }
