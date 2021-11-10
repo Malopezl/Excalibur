@@ -5,6 +5,7 @@
  */
 package gt.com.excalibur.services;
 
+import gt.com.excalibur.dtos.VideogameDto;
 import gt.com.excalibur.models.Videogame;
 import java.util.ArrayList;
 import java.util.Set;
@@ -23,9 +24,9 @@ public interface VideogameService {
 
     public Set<Videogame> getVideogamesByPublisher(Integer id);
 
-    public Videogame createVideogame(Videogame videogame);
+    public Videogame createVideogame(VideogameDto videogame);
 
-    public Videogame updateVideogame(Videogame videogame, Integer id);
+    public Videogame updateVideogame(VideogameDto videogame, Integer id);
 
     public void deleteVideogame(Integer id);
 

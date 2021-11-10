@@ -5,20 +5,25 @@
  */
 package gt.com.excalibur.services;
 
+import gt.com.excalibur.dtos.VideogameDto;
+import gt.com.excalibur.models.Genre;
 import gt.com.excalibur.models.Publisher;
 import gt.com.excalibur.models.Videogame;
 import gt.com.excalibur.repositories.GenreRepository;
 import gt.com.excalibur.repositories.PublisherRepository;
 import gt.com.excalibur.repositories.VideogameRepository;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author malopez
  */
+@Service
 public class VideogameServiceImp implements VideogameService {
 
     @Autowired
@@ -63,23 +68,41 @@ public class VideogameServiceImp implements VideogameService {
 
     @Override
     @Transactional
-    public Videogame createVideogame(Videogame videogame) {
-        return videogameRepository.save(videogame);
+    public Videogame createVideogame(VideogameDto videogame) {
+        Videogame newVideogame = new Videogame();
+        newVideogame.setName(videogame.getName());
+        newVideogame.setReleaseDate(videogame.getRelease());
+        newVideogame.setIdpublisher(videogame.getIdpublisher());
+        Set<Genre> genres = new HashSet<>();
+        videogame.getGenres().stream().map(id -> genreRepository.findById(id).get()).filter(genre -> (genre != null))
+                .forEachOrdered(genre -> {
+            genres.add(genre);
+        });
+        newVideogame.setGenres(genres);
+        return videogameRepository.save(newVideogame);
     }
 
     @Override
     @Transactional
-    public Videogame updateVideogame(Videogame videogame, Integer id) {
-        return videogameRepository.findById(id)
-                .map(newVideogame -> {
-                    newVideogame.setName(videogame.getName());
-                    newVideogame.setReleaseDate(videogame.getReleaseDate());
-                    return videogameRepository.save(newVideogame);
-                }).orElseGet(() -> { return videogame; });
+    public Videogame updateVideogame(VideogameDto videogame, Integer id) {
+        Videogame oldVideogame = videogameRepository.findById(id).get();
+        if (oldVideogame == null) {
+            return null;
+        }
+        oldVideogame.setName(videogame.getName());
+        oldVideogame.setReleaseDate(videogame.getRelease());
+        oldVideogame.setIdpublisher(videogame.getIdpublisher());
+        Set<Genre> genres = new HashSet<>();
+        videogame.getGenres().stream().map(idpublisher -> genreRepository.findById(idpublisher).get())
+                .filter(genre -> (genre != null)).forEachOrdered(genre -> {
+            genres.add(genre);
+        });
+        oldVideogame.setGenres(genres);
+        return videogameRepository.save(oldVideogame);
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public void deleteVideogame(Integer id) {
         videogameRepository.deleteById(id);
     }

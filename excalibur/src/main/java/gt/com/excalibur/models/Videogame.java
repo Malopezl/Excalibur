@@ -40,6 +40,9 @@ public class Videogame implements Serializable {
     @Column(name = "release")
     private String releaseDate;
 
+    @Column(name = "idpublisher")
+    private Integer idpublisher;
+
     @ManyToMany(cascade = { CascadeType.MERGE })
     @JoinTable(name = "videogameGenre", joinColumns = { @JoinColumn(name = "idvideogame", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "idgenre", referencedColumnName = "id") })

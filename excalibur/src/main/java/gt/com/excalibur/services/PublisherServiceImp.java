@@ -11,12 +11,14 @@ import gt.com.excalibur.repositories.VideogameRepository;
 import java.util.ArrayList;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author malopez
  */
+@Service
 public class PublisherServiceImp implements PublisherService {
 
     @Autowired
@@ -59,7 +61,7 @@ public class PublisherServiceImp implements PublisherService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public void deletePublisher(Integer id) {
         publisherRepository.deleteById(id);
     }

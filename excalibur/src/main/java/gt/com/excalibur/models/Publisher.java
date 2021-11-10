@@ -5,6 +5,7 @@
  */
 package gt.com.excalibur.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -35,7 +36,8 @@ public class Publisher implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
     @JoinColumn(name = "idpublisher")
     private Set<Videogame> videogames;
 

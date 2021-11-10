@@ -66,7 +66,7 @@ public class GenreServiceImp implements GenreService{
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public void deleteGenre(Integer id) {
         genreRepository.deleteById(id);
     }

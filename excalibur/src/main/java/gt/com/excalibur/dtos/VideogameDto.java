@@ -15,9 +15,9 @@ import lombok.Data;
 @Data
 public class VideogameDto {
 
-    private Integer id;
     private String name;
-    private String releaseDate;
+    private String release;
+    private Integer idpublisher;
     ArrayList<Integer> genres = new ArrayList();
 
 }
