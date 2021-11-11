@@ -37,7 +37,7 @@ public class Videogame implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "release")
+    @Column(name = "`release`")
     private String releaseDate;
 
     @Column(name = "idpublisher")

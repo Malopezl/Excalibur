@@ -80,6 +80,8 @@ public class VideogameServiceImp implements VideogameService {
         });
         newVideogame.setGenres(genres);
         return videogameRepository.save(newVideogame);
+//        System.out.println(newVideogame);
+//        return null;
     }
 
     @Override
